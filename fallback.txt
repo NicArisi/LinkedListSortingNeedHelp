@@ -1,0 +1,93 @@
+public static void append(int pos, String descr){
+    PipelineNode newNode = new PipelineNode(pos, descr, null);
+    if(headNode == null){ 
+      headNode = newNode;
+    }else{
+      tailNode.setNextNode(newNode);
+    }
+    tailNode = newNode; //specify a new tailNode
+  }
+  public void traverseAndPrint(){
+    PipelineNode currentNode = headNode;
+    int nodeNum = -1;
+    do
+    {
+    nodeNum++;
+    System.out.println("Node number: " + nodeNum);
+    System.out.println("Position: " + currentNode.getPosition());
+    System.out.println("Description: " + currentNode.getDescription());
+    System.out.println(""); //gives a blank line between nodes
+    currentNode = currentNode.getNextNode();
+    }while(currentNode != null);
+  }
+  public void getNode(int i){
+    PipelineNode currentNode = headNode;
+    int nodeNum = -1;
+    do
+    {
+    nodeNum++;
+    if(nodeNum==i){
+      System.out.println("Node number: " + nodeNum);
+      System.out.println("Position: " + currentNode.getPosition());
+      System.out.println("Description: " + currentNode.getDescription());
+      System.out.println(""); //gives a blank line between nodes
+      break;
+    }
+    currentNode = currentNode.getNextNode(); 
+    }while(currentNode != null);
+  }
+  public void PipelineAdd(int pos, String descr, int index){ 
+    if(index==0){
+      PipelineAddFront(pos, descr);
+    }else{
+      PipelineNode currentNode = headNode;
+      int nodeNum = -1;
+      PipelineNode request =  new PipelineNode(pos, descr,null);
+      do{
+        nodeNum++;
+        if(nodeNum+1==index){
+          request.setNextNode(currentNode.getNextNode());
+          currentNode.setNextNode(request);
+          break;
+        }else{
+          currentNode = currentNode.getNextNode();
+        }
+      }while(tailNode != null);
+    }
+  }
+  public void PipelineAdd(int pos, String descr){ 
+    PipelineNode request =  new PipelineNode(pos, descr,null);
+    tailNode.setNextNode(request);
+  }
+  public void PipelineSubtract(int index){ //beginning index request is bad
+    if(index==0){
+      headNode=headNode.getNextNode();
+    }else{ //pump, highway, tank    pump tank
+      int nodeNum = -1;
+      PipelineNode currentNode = headNode;
+      do{
+        nodeNum++;
+        if(nodeNum+1==index){
+          currentNode.setNextNode(currentNode.getNextNode().getNextNode());
+          break;
+        }else{
+          currentNode = currentNode.getNextNode();
+        }
+      }while(tailNode != null);
+    }
+  }
+  public void PipelineAddFront(int pos, String descr){
+      PipelineNode currentNode = headNode;
+      PipelineNode request =  new PipelineNode(pos, descr,currentNode);
+      headNode=request;
+  }
+  public int PipelineSize(){
+    PipelineNode currentNode = headNode;
+    int nodeNum = -1;
+    do
+    {
+    nodeNum++;
+    currentNode = currentNode.getNextNode();
+    }while(currentNode != null);
+    return nodeNum;
+  }

@@ -51,6 +51,19 @@ public class PipelineNodeList { //need sort and addtofront, and add to end. Gett
     currentNode = currentNode.getNextNode(); 
     }while(currentNode != null);
   }
+  public PipelineNode getNodeData(int i){
+    PipelineNode currentNode = headNode;
+    int nodeNum = -1;
+    do
+    {
+    nodeNum++;
+    if(nodeNum==i){
+      break;
+    }
+    currentNode = currentNode.getNextNode(); 
+    }while(currentNode != null);
+    return currentNode;
+  }
   public int PipelineSize(){
     PipelineNode currentNode = headNode;
     int nodeNum = 0;
@@ -131,41 +144,17 @@ public class PipelineNodeList { //need sort and addtofront, and add to end. Gett
     }while(currentNode!=null);
   }
   private void insertInOrder (PipelineNode m, int index){ 
-    PipelineNode temp = null;
-    PipelineNode tempPre=null;
     PipelineNode save=m;
-    for(;m != headNode && m.getPreNode().compareTo (save) > 0;m.getPreNode()){
-      temp=m;//0
-      tempPre=temp.getPreNode();//4573
-      PipelineSubtract(index);//this is the index in question(starting with the position val of 0)
-      PipelineSubtract(index-1);//this is the index before the one in question(Should start with 4573)
-      PipelineAdd(temp.getPosition(), temp.getDescription(), (index-1));//this is the index in question(starting with the position val of 0)
-      PipelineAdd( tempPre.getPosition(), tempPre.getDescription(), index);//this is the index before the one in question(Should start with 4573)
+   // PipelineNode saveNext=m.getNextNode();
+    //PipelineNode savePre=m.getPreNode();
+    int indexWhenFindSmaller=index;
+    while(m!=headNode && m.getPreNode().compareTo(save)>0){ //want to stop when we find a small val, or null such as with starting with 4573
+      indexWhenFindSmaller--;
+      m=m.getPreNode();
     }
+    PipelineSubtract(index);
+    PipelineAdd(save.getPosition(), save.getDescription(), indexWhenFindSmaller);
+    //getNodeData(indexWhenFindSmaller);
   } 
 }
-//4573, 0, 3050, 200, 6000
-//3050, 200, 6000
-//0 3050, 200, 6000
-//0 4573 3050, 200, 6000
-
-//0 4573 3050 200 6000 index is 2
-//0 200 6000
-//0 3050 200 6000
-//0 3050 4573 200 6000
-
-//0 3050 4573 200 6000 index is 3
-//0 3050 6000
-//0 3050 200 6000
-//0 3050 200 4573 6000 index is now 2 again 
-//0 4573 6000
-//0 200 4573 6000
-//0 200 3050 4573 6000
-
-//0 200 3050 4573 6000
-//pretty sure it won't do anything
-
-
-
-
-
+//4573, 0, 3050, 200, 6000 start at 0, 4573 is greater, indexsmaller is now 0, enter loop conditions again with m being the headnode of 4573, exit with false, remove 0, add 0 back into index 0

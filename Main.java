@@ -1,6 +1,6 @@
 class Main {
   public static void main(String[] args) {
-    /*PipelineNodeList alaskan= new PipelineNodeList();
+  /*PipelineNodeList alaskan= new PipelineNodeList();
     alaskan.append(0, "Pump station");
     alaskan.append(3050, "Hwy 35");
     alaskan.append(4573, "Tank farm");
@@ -31,7 +31,6 @@ class Main {
     Pa.append(6000, "11kj");
     Pa.traverseAndPrint();
     //System.out.println(Pa.PipelineSize());
-    Pa.PipelineAdd(2000, "ValveFuckingSucksStreet", 5);
     Pa.insertionSort();
     Pa.traverseAndPrint();
   }
